@@ -1,0 +1,134 @@
+/*
+App:
+    einmaleins Trainer
+file:
+    main.dart
+
+Copyright (c) 2019
+ralf Weinert <downad@freenet.de>
+Source Code:
+https://github.com/downad/flutter_einmaleins
+License: GPLv2.1
+
+*/
+
+import 'package:flutter/material.dart';
+
+import './questionManager.dart';
+import './appMainWidget.dart';
+import './homePage.dart';
+
+/*
+ Das Main für die 1 mal 1 App
+  # Version
+  0.1	initial - Februar 2019
+  0.2 	Fragen werden angezeigt und über 4 Button kann man die richtige Antwort wählen
+  0.3	Punkteliste wird geführt, Feedback zu den Antworten mit grün (richtig) und rot (falsch)
+
+ */
+/*
+void main() {
+//  runApp(EinMalEins());
+  runApp(myApp());
+}
+*/
+
+class EinMalEins extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Einmalein Quiz'),
+        ),
+        body: AppMainWidget(),
+//        body: QuestionManager('Mathe','random',3),
+      ),
+    );
+  }
+}
+class myApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: HomePage()
+    );
+  }
+}
+
+void main() {
+  runApp(MaterialApp(
+    title: 'Named Routes Demo',
+    // Start the app with the "/" named route. In our case, the app will start
+    // on the FirstScreen Widget
+    initialRoute: '/',
+    routes: {
+      // When we navigate to the "/" route, build the FirstScreen Widget
+      '/': (context) => FirstScreen(),
+      // When we navigate to the "/second" route, build the SecondScreen Widget
+      '/second': (context) => SecondScreen(),
+    },
+  ));
+}
+
+
+class HomePage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Quiz Auswahl'),
+      ),
+      body: Column(
+          children: [
+          RaisedButton(
+            child: Text('Trainer: Mathe, alles, 10 Aufgaben'),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => QuestionManager('Mathe','random',3)),
+              );
+            },
+          ),
+          RaisedButton(
+            child: Text('EinMalEins-Trainer2'),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => AppMainWidget()),
+              );
+            },
+          ),
+          RaisedButton(
+            child: Text('EinMalEins-Trainer'),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => SecondRoute()),
+              );
+            },
+          ),
+        ]
+      ),
+    );
+  }
+}
+
+class SecondRoute extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Second Route"),
+      ),
+      body: Center(
+        child: RaisedButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: Text('Go back!'),
+        ),
+      ),
+    );
+  }
+}
